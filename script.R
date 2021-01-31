@@ -1,4 +1,6 @@
 library(tidyverse)
+install.packages("forecast")
+library(forecast)
 files <- list.files("data", recursive=T,full.names=T)
 df <- tibble()
 for (f in files) {
@@ -61,3 +63,9 @@ g <- ggplot(index_df, aes(DataDate, US_High_Yield)) +
 plot(g)
 
 plot(residuals(lm2))
+
+lm2_coeff <- coef(lm2)
+lm2_coeff_tb<- tibble:::enframe(lm2_coeff, name = "factor", value = "coefficient")
+lm2_coeff_tb <- lm2_coeff_tb %>% dplyr::arrange(desc(abs(coefficient)))
+summary(lm2)
+forecast::checkresiduals(lm2$residuals)

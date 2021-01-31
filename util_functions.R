@@ -24,3 +24,13 @@ library(skimr)
 sink("outputlm.txt")
 df_wider %>% skimr::skim()
 sink()
+
+
+options(max.print=100000) 
+options(max.print=1000) 
+
+options('tibble.print_max' = 10000)
+
+getOption(tibble.print_max)
+
+lm2_coeff_tb %>% print(n=Inf)
